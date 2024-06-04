@@ -35,7 +35,8 @@ app.get('/', (req, res) => {
 
     axios.get(fullUrl)
       .then(response => {
-        res.send(response.data); // Send fetched data from backend
+        res.send(response.data); 
+        console.log(response.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -43,6 +44,7 @@ app.get('/', (req, res) => {
       });
   } else {
     res.send('GET request received!');
+    console.log('not valid URL');
   }
 });
 
