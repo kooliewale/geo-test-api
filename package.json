@@ -19,6 +19,7 @@
     "express": "^4.19.2",
     "socket.io": "^4.7.5",
     "uuid": "^9.0.1",
-    "axios":"*"
+    "axios":"*",
+     "@supabase/supabase-js": "^2.26.0",
   }
 }
