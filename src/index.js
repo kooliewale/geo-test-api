@@ -5,7 +5,6 @@ const axios = require('axios');
 const app = express();
 const url=require('url')
 const PORT = process.env.PORT || 4500;
-const A1=require('./a1.js')
 
 
 const BASE_URI = 'https://api.weatherapi.com/v1';  
