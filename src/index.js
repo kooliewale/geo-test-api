@@ -22,10 +22,9 @@ const logRequest = (req, res, next) => {
   // console.dir(req.headers); // Use console.dir for better formatting
   // console.dir(req.body);   // Access body data for POST requests (if applicable)
 
-  DATA['method'] = req.method;
+
   DATA['REQ_URL'] = req.url;
-  DATA['headers'] = req.headers;
-  DATA['body'] = req.body;
+
 
   next();
 };
@@ -37,7 +36,7 @@ app.all('*', (req, res) => {
   
   if (req.url.match('current.json')) {
     const url = `${BASE_URI}${req.url}`;
-    DATA['WEATHER_URL'] = url;
+ 
     axios.get(url)
       .then(response => {
         res.send(response.data);
@@ -53,7 +52,7 @@ app.all('*', (req, res) => {
     // You can send an informative message or a default response here
     res.status(404).send('Not Found');
   }
-
+console.log(DATA);
     supabase
     .from('gpsdatatest')
     .insert(DATA)
