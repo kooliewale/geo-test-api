@@ -1,5 +1,5 @@
 {
-  "name": "cooliewale-order-api",
+  "name": "testr-api",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -20,6 +20,6 @@
     "socket.io": "^4.7.5",
     "uuid": "^9.0.1",
     "axios":"*",
-     "@supabase/supabase-js": "^2.26.0",
+     "@supabase/supabase-js": "^2.26.0"
   }
 }
