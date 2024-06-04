@@ -29,8 +29,9 @@ const logRequest = (req, res, next) => {
 app.use(logRequest);
 
 const BASE_URL ='https://api.weatherapi.com/v1'
-app.get('/', (req, res) => {
-  if (req.url.endsWith('/current.json')) { // Check if URL ends with '/current.json'
+app.all('*', (req, res) => {
+  if (req.url.endsWith('/current.json')) 
+  { 
     const fullUrl = `${BASE_URL}${req.url}`; // Construct complete URL
     console.log(fullUrl);
     axios.get(fullUrl)
@@ -48,10 +49,7 @@ app.get('/', (req, res) => {
   }
 });
 
-app.post('/', (req, res) => {
-  console.log('Received data:', req.body); // Access POST request body
-  res.send('POST request received!');
-});
+
 
 
 app.listen(PORT, () => { 
