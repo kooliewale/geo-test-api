@@ -5,11 +5,15 @@ const axios = require('axios');
 const app = express();
 const url = require('url'); // Assuming you need the 'url' module
 const PORT = process.env.PORT || 4500;
-
+const { createClient } = require('@supabase/supabase-js');
 const BASE_URI = 'https://api.weatherapi.com/v1';
 app.use(bodyParser.json());
 app.use(cors());
 var DATA = [];
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const logRequest = (req, res, next) => {
   console.log(`--- Request Details ---`);
@@ -30,6 +34,7 @@ const logRequest = (req, res, next) => {
 app.use(logRequest);
 
 app.all('*', (req, res) => {
+  
   if (req.url.match('current.json')) {
     const url = `${BASE_URI}${req.url}`;
     DATA['WEATHER_URL'] = url;
@@ -48,6 +53,16 @@ app.all('*', (req, res) => {
     // You can send an informative message or a default response here
     res.status(404).send('Not Found');
   }
+
+    supabase
+    .from('gpsdatatest')
+    .insert(DATA)
+    .then(response1 => {
+      console.log('Data sent to Supabase successfully:', response1);
+    })
+    .catch(error1 => {
+      console.error('Error sending data to Supabase:', error1);
+    });
 });
 
 app.listen(PORT, () => {
