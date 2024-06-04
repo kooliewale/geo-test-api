@@ -7,6 +7,7 @@ const url=require('url')
 const PORT = process.env.PORT || 4500;
 
 
+
 const BASE_URI = 'https://api.weatherapi.com/v1';  
 app.use(bodyParser.json());
 app.use(cors());
@@ -49,7 +50,7 @@ DATA['WEATHER_URL']=url;
 }
 else
 {
-
+  res.send(req.url);
 }
 }) ;
 
