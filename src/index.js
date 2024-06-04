@@ -2,7 +2,7 @@
 const express = require("express"); 
 const bodyParser = require("body-parser");
 const cors=require("cors");
-const axios = require('axios');
+
 const app = express(); 
 const PORT = process.env.PORT||4500; 
 const IP='http://127.0.0.1';
@@ -28,24 +28,9 @@ const logRequest = (req, res, next) => {
 // Apply the middleware to handle all requests
 app.use(logRequest);
 
-const BASE_URL ='https://api.weatherapi.com/v1'
+// Specific route handlers (optional)
 app.get('/', (req, res) => {
-  if (req.url.endsWith('/current.json')) { // Check if URL ends with '/current.json'
-    const fullUrl = `${BASE_URL}${req.url}`; // Construct complete URL
-    console.log(fullUrl);
-    axios.get(fullUrl)
-      .then(response => {
-        res.send(response.data); 
-        console.log(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        res.status(500).send('Error retrieving data'); // Handle errors gracefully
-      });
-  } else {
-    res.send('GET request received!');
-    console.log('not valid URL');
-  }
+  res.send('GET request received!');
 });
 
 app.post('/', (req, res) => {
