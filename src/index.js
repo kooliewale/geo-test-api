@@ -15,22 +15,6 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-supabase
-  .from('datatest')
-  .schema()
-  .create({
-    columns: [
-      { name: 'id', type: 'serial', primary_key: true }, // Auto-incrementing ID
-      { name: 'URL', type: 'text', not_null: true }, // URL column
-      { name: 'RESPONSE', type: 'jsonb', not_null: true }, // RESPONSE column (JSON)
-    ],
-  })
-  .then(() => {
-    console.log('Table "datatest" created successfully!');
-  })
-  .catch(error => {
-    console.error('Error creating table:', error);
-  });
 
 const logRequest = (req, res, next) => {
   // console.log(`--- Request Details ---`);
