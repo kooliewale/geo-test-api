@@ -28,7 +28,7 @@ const logRequest = (req, res, next) => {
 // Apply the middleware to handle all requests
 app.use(logRequest);
 
-const BASE_URL = ='https://api.weatherapi.com/v1'
+const BASE_URL ='https://api.weatherapi.com/v1'
 app.get('/', (req, res) => {
   if (req.url.endsWith('/current.json')) { // Check if URL ends with '/current.json'
     const fullUrl = `${BASE_URL}${req.url}`; // Construct complete URL
