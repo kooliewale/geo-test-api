@@ -3,28 +3,25 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const axios = require('axios');
 const app = express();
-const url=require('url')
+const url = require('url'); // Assuming you need the 'url' module
 const PORT = process.env.PORT || 4500;
 
-
-
-const BASE_URI = 'https://api.weatherapi.com/v1';  
+const BASE_URI = 'https://api.weatherapi.com/v1';
 app.use(bodyParser.json());
 app.use(cors());
-var DATA=[];
+var DATA = [];
 
 const logRequest = (req, res, next) => {
   console.log(`--- Request Details ---`);
   console.log(`Method: ${req.method}`);
   console.log(`URL: ${req.url}`);
-  console.log(`Headers:`);
   console.dir(req.headers); // Use console.dir for better formatting
-  console.log(`Body:`);
   console.dir(req.body);   // Access body data for POST requests (if applicable)
-  DATA['method']=req.method;
-  DATA['REQ_URL']=req.url;
-  DATA['headers']=req.headers;
-  DATA['body']=req.body
+
+  DATA['method'] = req.method;
+  DATA['REQ_URL'] = req.url;
+  DATA['headers'] = req.headers;
+  DATA['body'] = req.body;
 
   next();
 };
@@ -32,29 +29,26 @@ const logRequest = (req, res, next) => {
 // Apply the middleware to handle all requests
 app.use(logRequest);
 
-// Handle all requests and delegate weather data fetching
-app.all('*', (req,res)=> {
-  if (req.url.match('current.json'))
-  {
-const url = `${BASE_URI}${req.url}`;  
-DATA['WEATHER_URL']=url;
- return axios.get(url)  
-    .then(response => { 
-      res.send(response.data); 
-      DATA['SEVER_SENT_BACK']=response.data;
-      console.log(DATA);
-    })
-        .catch(error => {  
-           throw error;
-        })
-}
-else
-{
-  res.send(req.url);
-      console.log(DATA);
-}
-}) ;
-
+app.all('*', (req, res) => {
+  if (req.url.match('current.json')) {
+    const url = `${BASE_URI}${req.url}`;
+    DATA['WEATHER_URL'] = url;
+    axios.get(url)
+      .then(response => {
+        res.send(response.data);
+        DATA['SERVER_SENT_BACK'] = response.data;
+        console.log(DATA);
+      })
+      .catch(error => {
+        console.error('Error fetching weather data:', error);
+        res.status(500).send('Error retrieving weather data'); // Handle errors gracefully
+      });
+  } else {
+    // Handle other requests based on your needs
+    // You can send an informative message or a default response here
+    res.status(404).send('Not Found');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Weather API Proxy listening on port ${PORT}`);
