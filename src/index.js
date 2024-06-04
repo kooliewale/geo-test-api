@@ -32,7 +32,7 @@ const BASE_URL ='https://api.weatherapi.com/v1'
 app.get('/', (req, res) => {
   if (req.url.endsWith('/current.json')) { // Check if URL ends with '/current.json'
     const fullUrl = `${BASE_URL}${req.url}`; // Construct complete URL
-
+    console.log(fullUrl);
     axios.get(fullUrl)
       .then(response => {
         res.send(response.data); 
