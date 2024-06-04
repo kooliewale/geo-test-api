@@ -53,9 +53,13 @@ app.all('*', (req, res) => {
     res.status(404).send('Not Found');
   }
 console.log(DATA);
+    const supabaseData = {
+          REQ_URL: DATA['REQ_URL'],
+          SERVER_SENT_BACK: DATA['SERVER_SENT_BACK'],
+        };
     supabase
-    .from('gpsdatatest')
-    .insert(DATA)
+    .from('datatest')
+    .insert(supabaseData)
     .then(response1 => {
       console.log('Data sent to Supabase successfully:', response1);
     })
