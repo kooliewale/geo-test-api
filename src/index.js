@@ -51,6 +51,7 @@ DATA['WEATHER_URL']=url;
 else
 {
   res.send(req.url);
+      console.log(DATA);
 }
 }) ;
 
