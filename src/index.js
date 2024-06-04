@@ -16,11 +16,11 @@ const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const logRequest = (req, res, next) => {
-  console.log(`--- Request Details ---`);
-  console.log(`Method: ${req.method}`);
-  console.log(`URL: ${req.url}`);
-  console.dir(req.headers); // Use console.dir for better formatting
-  console.dir(req.body);   // Access body data for POST requests (if applicable)
+  // console.log(`--- Request Details ---`);
+  // console.log(`Method: ${req.method}`);
+  // console.log(`URL: ${req.url}`);
+  // console.dir(req.headers); // Use console.dir for better formatting
+  // console.dir(req.body);   // Access body data for POST requests (if applicable)
 
   DATA['method'] = req.method;
   DATA['REQ_URL'] = req.url;
@@ -42,7 +42,7 @@ app.all('*', (req, res) => {
       .then(response => {
         res.send(response.data);
         DATA['SERVER_SENT_BACK'] = response.data;
-        console.log(DATA);
+        // console.log(DATA);
       })
       .catch(error => {
         console.error('Error fetching weather data:', error);
