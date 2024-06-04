@@ -53,11 +53,21 @@ app.all('*', (req, res) => {
     // You can send an informative message or a default response here
     res.status(404).send('Not Found');
   }
+  const city = req.headers['x-vercel-ip-city'];
+const region = req.headers['x-vercel-ip-country-region'];
+const country = req.headers['x-vercel-ip-country'];
 console.log(DATA);
-    const supabaseData = {
-          REQ_URL: DATA['REQ_URL'],
-          SERVER_SENT_BACK: DATA['SERVER_SENT_BACK'],
-        };
+const supabaseData = {
+    REQ_URL: DATA['REQ_URL'],
+    SERVER_SENT_BACK: DATA['SERVER_SENT_BACK'],
+    IP: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    lat: req.headers['x-vercel-ip-latitude'],
+    lon: req.headers['x-vercel-ip-longitude'],
+    place: `${city}, ${region}, ${country}`,
+    UA: req.headers['user-agent'],
+   date_time: new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' })
+};
+
     supabase
     .from('datatest')
     .insert(supabaseData)
