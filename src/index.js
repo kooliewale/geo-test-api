@@ -9,7 +9,7 @@ const IP='http://127.0.0.1';
 const PROJECT=process.env.PROJECT||'KT';
 const VERSION=process.env.VERSION|'v0.0.1';
 const serverStartTime = new Date();  
-const DATA_MOCK='./data.json';
+const DATA_MOCK=require ('./data.json');
 app.use(bodyParser.json());
 app.use(cors());   
 // Middleware function to log details for all requests
@@ -30,7 +30,7 @@ const logRequest = (req, res, next) => {
 app.use(logRequest);
 
 app.all('*',(req,res)=> {
-  res.json(DATA_MOCK);
+  res.send(DATA_MOCK);
 });
 
 
