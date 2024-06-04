@@ -14,13 +14,13 @@ app.use(cors());
 var DATA=[];
 
 const logRequest = (req, res, next) => {
-  // console.log(`--- Request Details ---`);
-  // console.log(`Method: ${req.method}`);
-  // console.log(`URL: ${req.url}`);
-  // console.log(`Headers:`);
-  // console.dir(req.headers); // Use console.dir for better formatting
-  // console.log(`Body:`);
-  // console.dir(req.body);   // Access body data for POST requests (if applicable)
+  console.log(`--- Request Details ---`);
+  console.log(`Method: ${req.method}`);
+  console.log(`URL: ${req.url}`);
+  console.log(`Headers:`);
+  console.dir(req.headers); // Use console.dir for better formatting
+  console.log(`Body:`);
+  console.dir(req.body);   // Access body data for POST requests (if applicable)
   DATA['method']=req.method;
   DATA['REQ_URL']=req.url;
   DATA['headers']=req.headers;
